@@ -19,6 +19,8 @@
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="docs.min.js"></script>
 
+    <script type="text/javascript" src="js/show_by_category.js"></script>
+
     <!-- Custom CSS -->
     <style>
 
@@ -30,6 +32,10 @@
     	{
     		cursor:not-allowed;
     	}
+      .hide
+      {
+        visibility: hidden;
+      }
     </style>
 
     <!-- Custom JS-->
@@ -40,9 +46,11 @@
     	$(document).ready(function(){
 
 
-        $('tbody').on("click","tr",function(){
-          alert($(this).children('td:nth-child(2)').text());
+        $('tbody').on("click","tr:not(.warning,.danger)",function(){
 
+           $('#myModal2 #modal_nazwa').html($(this).children('td:nth-child(2)').text());
+            $('#myModal2 #modal_kategoria').html($(this).children('td:nth-child(3)').text());
+               $('#myModal2 #modal_opis').html($(this).children('td:nth-child(4)').text());
           $('#myModal2').modal('show');
 
         });
@@ -58,21 +66,26 @@
           {
             for(var a=0;a<msg.length;a++)
             {
-              var row = $("<tr>");
+              var klasa = "";
+              if(msg[a]["wyp"] == 1)
+              {
+                klasa = "warning";
+              }
+              if(msg[a]["uszk"] == 1)
+              {
+                klasa  ="danger";
+              }
+              var row = $("<tr class='"+klasa+"'>");
 
          				row.append($("<td id='"+msg[a]["id"]+"'>"+msg[a]["id"]+"</td>"))
             			   .append($("<td>"+msg[a]["nazwa"]+"</td>"))
-            			   .append($("<td>"+msg[a]["kategoria"]+"</td>"));
+            			   .append($("<td>"+msg[a]["kategoria"]+"</td>"))
+                     .append($("<td class='hide'>"+msg[a]["opis"]+"</td>"));
 
          			$("#table_elements").append(row);
             }
           }
         });
-
-    		$('tr:not(.warning,.danger)').click(function(){
-
-    			$('#myModal2').modal('show');
-    		});
 
 
     		$('#add_element').click(function(){
@@ -105,6 +118,13 @@
     		});
 
 
+
+
+        $("#category_menu li").click(function(){
+          $("#category_menu li").removeClass("active");
+          $(this).addClass("active");
+          test();
+        });
     	});
 
 
@@ -160,7 +180,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
+          <ul class="nav nav-sidebar" id="category_menu">
             <li class="active"><a href="#">Wszystko <span class="sr-only">(current)</span><span class="badge">0</span></a></li>
             <li><a href="#">Druk 3D <span class="badge">0</span></a></li>
             <li><a href="#">Elektronika <span class="badge">0</span></a></li>
