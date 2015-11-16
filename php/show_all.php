@@ -13,7 +13,7 @@ $db = new mysqli("localhost","root","root","clusterstuff");
      while($row = mysqli_fetch_assoc($val))
      {
 
-       array_push($elements,array("id"=>$row["id"],"nazwa"=>$row["nazwa"],"kategoria"=>$row["kategoria"],"opis"=>$row["opis"]));
+       array_push($elements,array("id"=>$row["id"],"nazwa"=>$row["nazwa"],"kategoria"=>$row["kategoria"],"opis"=>$row["opis"],"wyp"=>$row["wypozyczone"],"uszk"=>$row["uszkodzone"]));
 
      }
 
