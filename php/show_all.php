@@ -1,13 +1,28 @@
 <?php
 
+$category = $_GET['kategoria'];
+
 $db = new mysqli("localhost","root","root","clusterstuff");
    if($db->connect_error)
    {
    	 echo "error";
    }
 
-   $query = "SELECT * FROM Elements";
+
+   if($category!="all")
+   {
+     $query = "SELECT * FROM Elements WHERE kategoria LIKE '" . mysql_escape_string($category) . "';";
+   }
+   else {
+     $query = "SELECT * FROM Elements";
+   }
+
    $val = mysqli_query($db,$query);
+
+
+  if($val and (mysqli_num_rows($val)>0))
+  {
+
 
      $elements = array();
      while($row = mysqli_fetch_assoc($val))
@@ -19,7 +34,10 @@ $db = new mysqli("localhost","root","root","clusterstuff");
 
      echo json_encode($elements);
 
-
+}
+else {
+  echo "error";
+}
 
 
 $db->close();
