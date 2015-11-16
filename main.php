@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Main Page">
     <meta name="author" content="Michal Zegen">
-    
+
     <!-- CSS files-->
     <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
@@ -18,9 +18,10 @@
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="docs.min.js"></script>
-    
+
     <!-- Custom CSS -->
     <style>
+
     	tr:not(.warning):not(.danger)
     	{
     		cursor:pointer;
@@ -30,38 +31,57 @@
     		cursor:not-allowed;
     	}
     </style>
-    
+
     <!-- Custom JS-->
     <script type="text/javascript">
+
+
+
     	$(document).ready(function(){
-    		
-    		
+
+
+        $('tbody').on("click","tr",function(){
+          alert($(this).children('td:nth-child(2)').text());
+
+          $('#myModal2').modal('show');
+
+        });
+
+
+
+        <!-- read all elements -->
+        $.ajax({
+          type:"POST",
+          dataType:"json",
+          url:"php/show_all.php",
+          success:function(msg)
+          {
+            for(var a=0;a<msg.length;a++)
+            {
+              var row = $("<tr>");
+
+         				row.append($("<td id='"+msg[a]["id"]+"'>"+msg[a]["id"]+"</td>"))
+            			   .append($("<td>"+msg[a]["nazwa"]+"</td>"))
+            			   .append($("<td>"+msg[a]["kategoria"]+"</td>"));
+
+         			$("#table_elements").append(row);
+            }
+          }
+        });
+
     		$('tr:not(.warning,.danger)').click(function(){
-    			
+
     			$('#myModal2').modal('show');
     		});
-    		
-    		
-    		var a = 0;
-    	 for(;a<10;a++)
-    	 {
- 			 var row = $("<tr>");
-  				
-  				row.append($("<td id='"+a+"'>"+a+"</td>"))
-     			   .append($("<td>Text-2</td>"))
-     			   .append($("<td>Text-3</td>"));
-    
-  			$("#table_elements").append(row);
-        }
-    		
+
+
     		$('#add_element').click(function(){
-    			
+
     			$('#table_elements tr[class!="table_names"]').remove();
-    			
+
     			$.ajax({
     				type:"POST",
-    				url:"add_element.php",
-    				dataType:"json",
+    				url:"php/add_element.php",
     				data:
     				{
     					nazwa:document.getElementById("new_element").elements[0].value,
@@ -70,39 +90,39 @@
     				},
     				success:function(msg)
     				{
-    					alert(msg[1]);
+    					alert(msg);
     				},
     				complete:function(msg)
     				{
-    					
+
     				},
     				error:function(msg)
     				{
     					$('#demo').val("error");
     				}
-    				
+
     			});
     		});
-    		
-    		
+
+
     	});
-    	
-    	
-    	
+
+
+
     </script>
 </head>
 
 
 
 <body>
-	
+
 	<!--Include templates-->
-     <? 
-     include("templates/add_element.html"); 
+     <?
+     include("templates/add_element.html");
      include("templates/show_element.html");
      ?>
-     
-     
+
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -115,7 +135,7 @@
           <a class="navbar-brand" href="#">ClusterStuff</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-         
+
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#">Home</a></li>
             <li><a href="#">Wypożyczone <span class="badge">0</span></a></li>
@@ -127,18 +147,15 @@
  <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
   Add
 </button>
-<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal2">
-  check
-</button>
-            <input type="text" class="form-control" placeholder="Wyszukaj elementów...">  
+            <input type="text" class="form-control" placeholder="Wyszukaj elementów...">
           </form>
         </div>
       </div>
     </nav>
-    
-     
 
-    
+
+
+
 
     <div class="container-fluid">
       <div class="row">
@@ -150,33 +167,20 @@
             <li><a href="#">Mechanika <span class="badge">0</span></a></li>
             <li><a href="#">Narzędzia <span class="badge">0</span></a></li>
           </ul>
-          <!--
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item</a></li>
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-          </ul>
-          -->
+
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        	
- 			
- 
-        	
+
+
+
+
           <h1 class="page-header"></h1>
           <div id="demo"></div>
           <h2 class="sub-header">Elementy</h2>
           <table id="tabElements">
-          	
+
           </table>
-          
+
           <div class="table-responsive">
             <table class="table table-hover" id="table_elements">
               <thead>
@@ -184,59 +188,13 @@
                   <th>ID</th>
                   <th>Nazwa</th>
                   <th>Kategoria</th>
-                
+
                 </tr>
               </thead>
               <tbody>
-                <tr class="danger">
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                 
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                 <td>odio</td>
-                </tr>
-                <tr class="warning">
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  
-                  
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                 
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-               
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                
-                </tr>
-               
+
+                    <!-- Area for elements from database -->
+
               </tbody>
             </table>
           </div>
@@ -244,7 +202,7 @@
       </div>
     </div>
 
-   
+
 
 </body>
 </html>

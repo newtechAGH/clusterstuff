@@ -5,8 +5,28 @@ $kategoria = $_POST['kategoria'];
 
 
 
-$elements = array();
-array_push($elements,$nazwa,$opis,$kategoria);
+if($nazwa and $opis and $kategoria) {
 
-echo json_encode($elements);
+
+  $db = new mysqli("localhost","root","root","clusterstuff");
+
+
+     if($db->connect_error)
+     {
+     	 echo "error";
+     }
+
+
+     $sql = "INSERT INTO Elements (nazwa,kategoria,opis) VALUES ('".$nazwa."','".$kategoria."','".$opis."')";
+    if(mysqli_query($db,$sql))
+    {
+      echo "added";
+    }
+    else {
+      echo "error";
+    }
+
+    $db->close();
+}
+
 ?>
