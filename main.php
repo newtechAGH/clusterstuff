@@ -57,38 +57,12 @@
 
 
          $.getScript("js/show_by_category.js",function(){
-             show_elements("ss");
+             show_elements("all");
          });
 
-
-    		$('#add_element').click(function(){
-
-    			$('#table_elements tr[class!="table_names"]').remove();
-
-    			$.ajax({
-    				type:"POST",
-    				url:"php/add_element.php",
-    				data:
-    				{
-    					nazwa:document.getElementById("new_element").elements[0].value,
-    					opis:document.getElementById("new_element").elements[1].value,
-    					kategoria:document.getElementById("new_element").elements[2].value
-    				},
-    				success:function(msg)
-    				{
-    					alert(msg);
-    				},
-    				complete:function(msg)
-    				{
-
-    				},
-    				error:function(msg)
-    				{
-    					$('#demo').val("error");
-    				}
-
-    			});
-    		});
+         $.getScript("js/add_element.js",function(){
+            new_element();
+         });
 
 
 
@@ -96,7 +70,26 @@
         $("#category_menu li").click(function(){
           $("#category_menu li").removeClass("active");
           $(this).addClass("active");
-          test();
+
+            	$('#table_elements tr[class!="table_names"]').remove();
+
+              var categ = "";
+              switch($(this).data("search"))
+              {
+                case "all":
+                categ = "all";
+                break;
+                case 1:
+                categ = "1";
+                break;
+                default:
+                categ = "1";
+                break;
+              }
+          $.getScript("js/show_by_category.js",function(){
+              show_elements(categ);
+          });
+
         });
     	});
 
@@ -154,11 +147,11 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar" id="category_menu">
-            <li class="active"><a href="#">Wszystko <span class="sr-only">(current)</span><span class="badge">0</span></a></li>
-            <li><a href="#">Druk 3D <span class="badge">0</span></a></li>
-            <li><a href="#">Elektronika <span class="badge">0</span></a></li>
-            <li><a href="#">Mechanika <span class="badge">0</span></a></li>
-            <li><a href="#">Narzędzia <span class="badge">0</span></a></li>
+            <li data-search="all" id="all" class="active"><a href="#">Wszystko <span class="sr-only">(current)</span><span class="badge">0</span></a></li>
+            <li data-search="1"><a href="#">Druk 3D <span class="badge">0</span></a></li>
+            <li data-search="4"><a href="#">Elektronika <span class="badge">0</span></a></li>
+            <li data-search="1"><a href="#">Mechanika <span class="badge">0</span></a></li>
+            <li data-search="4"><a href="#">Narzędzia <span class="badge">0</span></a></li>
           </ul>
 
         </div>
@@ -184,6 +177,7 @@
 
                 </tr>
               </thead>
+              <div id="error_div"></div>
               <tbody>
 
                     <!-- Area for elements from database -->
