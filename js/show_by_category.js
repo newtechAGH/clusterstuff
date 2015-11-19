@@ -6,7 +6,7 @@ function show_elements(kategoria)
   $.ajax({
     type:"GET",
     dataType:"json",
-    url:"/php/show_all.php",
+    url:"/php/show_elements.php",
     data:
     {
       kategoria:kategoria

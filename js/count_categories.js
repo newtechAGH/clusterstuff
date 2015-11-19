@@ -1,0 +1,6 @@
+function count(kategoria)
+{
+  $.ajax({
+
+  });
+}

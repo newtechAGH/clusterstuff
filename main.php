@@ -18,8 +18,10 @@
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="docs.min.js"></script>
-
+    <script type="text/javascript" src="js/count_elements.js"></script>
     <script type="text/javascript" src="js/show_by_category.js"></script>
+  
+      <script type="text/javascript" src="js/modal_event.js"></script>
 
     <!-- Custom CSS -->
     <style>
@@ -45,9 +47,41 @@
 
     	$(document).ready(function(){
 
+        var kategorie_nazwa = [];
+        var kategorie_search = [];
+
+        $.ajax({
+          type:"POST",
+          dataType:"json",
+          async:false,
+          url:"php/kategorie.php",
+          success:function(msg)
+          {
+            if(msg!="error")
+            {
+            for(var a=0;a<msg.length;a++)
+            {
+                kategorie_nazwa.push(msg[a]['nazwa']);
+                kategorie_search.push(msg[a]['szukaj']);
+            }
+          }
+        }
+        });
+
+
+        <!--Tworz menu -->
+        var first_row = $('<li class="active" data-search="'+kategorie_search[0]+'"><a href="#">'+kategorie_nazwa[0]+'<span class="sr-only">(current)</span>   <span class="badge">'+count(kategorie_search[0])+'</span></a></li>');
+        $('#category_menu').append(first_row);
+        for(var a = 1;a<kategorie_nazwa.length;a++)
+        {
+          var row =  $('<li data-search="'+kategorie_search[a]+'"><a href="#">'+kategorie_nazwa[a]+'    <span class="badge">'+count(kategorie_search[a])+'</span></a></li>');
+          $('#category_menu').append(row);
+        }
+
+
 
         $('tbody').on("click","tr:not(.warning,.danger)",function(){
-
+            $('#myModal2 #modal_id').html($(this).children('td:nth-child(1)').text());
            $('#myModal2 #modal_nazwa').html($(this).children('td:nth-child(2)').text());
             $('#myModal2 #modal_kategoria').html($(this).children('td:nth-child(3)').text());
                $('#myModal2 #modal_opis').html($(this).children('td:nth-child(4)').text());
@@ -56,8 +90,10 @@
         });
 
 
+
+
          $.getScript("js/show_by_category.js",function(){
-             show_elements("all");
+               show_elements("all");
          });
 
          $.getScript("js/add_element.js",function(){
@@ -67,34 +103,26 @@
 
 
 
+
+
         $("#category_menu li").click(function(){
           $("#category_menu li").removeClass("active");
           $(this).addClass("active");
 
             	$('#table_elements tr[class!="table_names"]').remove();
-
-              var categ = "";
-              switch($(this).data("search"))
-              {
-                case "all":
-                categ = "all";
-                break;
-                case 1:
-                categ = "1";
-                break;
-                default:
-                categ = "1";
-                break;
-              }
+              var categ = $(this).data("search");
           $.getScript("js/show_by_category.js",function(){
               show_elements(categ);
           });
 
         });
-    	});
+
+      $('#add').click(function(){
+         $('#myModal').modal('show');
+      });
 
 
-
+});
     </script>
 </head>
 
@@ -102,13 +130,12 @@
 
 <body>
 
+
 	<!--Include templates-->
      <?
-     include("templates/add_element.html");
+     include("templates/add_element.php");
      include("templates/show_element.html");
      ?>
-
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -130,7 +157,7 @@
           </ul>
           <form class="navbar-form navbar-right">
           	 <!-- Button trigger modal -->
- <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">
+ <button type="button" class="btn btn-warning" data-toggle="modal" id="add">
   Add
 </button>
             <input type="text" class="form-control" placeholder="Wyszukaj elementów...">
@@ -147,11 +174,7 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar" id="category_menu">
-            <li data-search="all" id="all" class="active"><a href="#">Wszystko <span class="sr-only">(current)</span><span class="badge">0</span></a></li>
-            <li data-search="1"><a href="#">Druk 3D <span class="badge">0</span></a></li>
-            <li data-search="4"><a href="#">Elektronika <span class="badge">0</span></a></li>
-            <li data-search="1"><a href="#">Mechanika <span class="badge">0</span></a></li>
-            <li data-search="4"><a href="#">Narzędzia <span class="badge">0</span></a></li>
+
           </ul>
 
         </div>
@@ -163,6 +186,8 @@
           <h1 class="page-header"></h1>
           <div id="demo"></div>
           <h2 class="sub-header">Elementy</h2>
+
+
           <table id="tabElements">
 
           </table>
