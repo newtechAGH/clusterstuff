@@ -16,11 +16,6 @@ $(document).ready(function(){
   });
 
 
-function saveAjaxRequest()
-{
-
-}
-
 
   function edit()
   {
@@ -35,7 +30,9 @@ function saveAjaxRequest()
     $('#anuluj_edytowanie').removeClass("disapear");
 
     $('#edit_modal_nazwa').attr("value",$('#modal_nazwa').text());
-    $('#edit_modal_opis').attr("value",$('#modal_opis').text());
+
+    document.getElementById("edit_modal_opis").value = $('#modal_opis').text();
+
 
     $(this).one("click",save);
   }
@@ -43,7 +40,11 @@ function saveAjaxRequest()
   function save()
   {
 
-    saveAjaxRequest();
+
+    $.getScript("/js/update_element.js", function(){
+         update();
+     });
+
 
     $(this).html("Edytuj")
     .addClass("btn-warning")
@@ -56,7 +57,10 @@ function saveAjaxRequest()
 
 
     $(this).one("click",edit);
-  }
+
+    $('#myModal2').modal("hide");
+    location.reload();
+    }
 
   $('#edytuj_element').one("click",edit);
 
