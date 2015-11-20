@@ -20,7 +20,7 @@
     <script type="text/javascript" src="docs.min.js"></script>
     <script type="text/javascript" src="js/count_elements.js"></script>
     <script type="text/javascript" src="js/show_by_category.js"></script>
-  
+
       <script type="text/javascript" src="js/modal_event.js"></script>
 
     <!-- Custom CSS -->
@@ -37,6 +37,11 @@
       .hide
       {
         visibility: hidden;
+      }
+
+      .disapear
+      {
+        display: none;
       }
     </style>
 
