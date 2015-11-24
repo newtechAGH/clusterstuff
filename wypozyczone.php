@@ -117,37 +117,9 @@ session_start();
      <?
      include("templates/add_element.php");
      include("templates/show_request.php");
+     include("templates/nav.php");
      ?>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">ClusterStuff</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
 
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Wypożyczone <span class="badge" style="background-color:green;">0</span></a></li>
-            <li><a href="#">Oczekujace <span class="badge">0</span></a></li>
-                <li><a href="#">Nowi <span class="badge">0</span></a></li>
-            <li><a href="#">Wyloguj</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-          	 <!-- Button trigger modal -->
- <button type="button" class="btn btn-warning" data-toggle="modal" id="add">
-  Add
-</button>
-            <input type="text" class="form-control" placeholder="Wyszukaj elementów...">
-          </form>
-        </div>
-      </div>
-    </nav>
 
 
 

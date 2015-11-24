@@ -17,3 +17,23 @@ function getElementBy(id)
   });
   return info;
 }
+function getElementByUser(id,user)
+{
+  var info = null;
+  $.ajax({
+    type:"POST",
+    dataType:"json",
+    url:"/php/get_element_user.php",
+    async:false,
+    data:
+    {
+      id:id,
+      user:user
+    },
+    success:function(msg)
+    {
+      info = msg;
+    }
+  });
+  return info;
+}

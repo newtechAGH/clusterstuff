@@ -9,7 +9,7 @@
 		 {
 			 if(msg!="error")
 			 {
-					for(var a = 0; a<msg.length;a++)
+					for(var a = 1; a<msg.length;a++)
 					{
 					 var query = $("<option>"+msg[a]['szukaj']+"</option>");
 					 $('#edit_modal_kategoria').append(query);
@@ -17,6 +17,19 @@
 			 }
 		 }
 	 });
+
+
+     var user = getUser($('#login').data('value'),$('#password').data('value'));
+     if(user.admin == 1)
+     {
+        $('#edytuj_element').removeClass('disapear');
+        $('#usun_element').removeClass('disapear');
+
+     }
+
+
+
+
  });
 
 
@@ -62,14 +75,29 @@
 						<textarea class="form-control edit disapear" rows="3" id="edit_modal_opis"></textarea>
 				</p>
   			</a>
+        <a href="#" class="list-group-item edit disapear">
+    		<h4 class="list-group-item-heading">Zepsuty element?</h4>
+    		<p class="list-group-item-text">
+          <div class="checkbox">
+             <label>
+           <input type="checkbox" value="" id="zepsuty"> Check
+          </label>
+           </div>
+
+				</p>
+  			</a>
 				</div>
 			</form>
-
+       <div id="zapytanie" class="disapear">
+        <hr style="width:100%;">
+        <h4> Do czego wykorzystasz element ? </h4>
+      	<textarea class="form-control" rows="4" id="zapytanie_opis"></textarea>
+      </div>
       </div>
       <div class="modal-footer">
 				<button type="button" class="btn btn-info" id="wypozycz_element" >Wypożycz</button>
-				<button type="button" class="btn btn-warning" id="edytuj_element">Edytuj</button>
-				<button type="button" class="btn btn-danger" id="usun_element">Usuń</button>
+        <button type="button" class="btn btn-warning disapear" id="edytuj_element">Edytuj</button>
+				<button type="button" class="btn btn-danger disapear" id="usun_element">Usuń</button>
 				<button type="button" class="btn btn-primary disapear" id="anuluj_edytowanie" style="float:left;" >Anuluj</button>
         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="location.reload();">Close</button>
       </div>

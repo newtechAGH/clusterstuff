@@ -9,11 +9,11 @@
 			{
 				if(msg!="error")
 				{
-					 for(var a = 0; a<msg.length;a++)
+					 for(var a = 1; a<msg.length;a++)
 					 {
 						var query = $("<option>"+msg[a]['szukaj']+"</option>");
 						$('#add_element_search').append(query);
-					}	
+					}
 				}
 			}
 		});

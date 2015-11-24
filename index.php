@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,19 +20,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
- <script src="js/application.js"></script>
- 
- 
- <script src="js/jquery.cycle.all.js"></script>
- <script src="js/jquery.cycle.all.min.js"></script>
- <script src="js/jquery.maximage.js"></script>
- <script src="js/jquery.maximage.min.js"></script>
+
 <script src="js/validate_login.js"></script>
 
 <style>
-	
 
-	
+
+
 	.form-signin
 	{
 		background: #ffffff;
@@ -44,15 +41,39 @@
 #maximage {
 /*				position:fixed !important;*/
 			}
-			
- 
+
+
 </style>
 
 <script>
 	$(document).ready(function(){
 		$('.container').hide().fadeIn(2000);
-		
-	  
+
+
+
+    $('form').submit(function(e){
+
+        $.ajax({
+          type:"POST",
+          url:"php/login.php",
+          data:
+          {
+              login:document.getElementById("login").elements[0].value,
+              pass:document.getElementById("login").elements[1].value
+          },
+          success:function(msg)
+          {
+               if(msg == "zalogowany")
+               {
+                 location.href = "main.php";
+               }
+          }
+        });
+
+          e.preventDefault();
+
+    });
+
 
 	});
 </script>
@@ -61,24 +82,24 @@
 
 
 <body>
-	
+
     <div class="container">
 
-      <form class="form-signin" name="login" method="POST" action="login.php" onsubmit="return checkForm(this)" novalidate>
+      <form class="form-signin" name="login" id="login" type="POST" action="php/login.php" validate>
         <h2 class="form-signin-heading">ClusterStuff</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" name="login" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Password" required>
-       
+
         <button class="btn btn-lg btn-warning btn-block" type="submit">Log in</button>
         <button class="btn btn-lg btn-warning btn-block" type="submit">Register</button>
-        
+
       </form>
 
-    </div> 
-   
-    
-   
+    </div>
+
+
+
 </body>
 </html>
