@@ -1,5 +1,8 @@
 <script>
 $(document).ready(function(){
+
+  <!-- nadanie praw w menu gornym -->
+
   var user = getUser($('#login').data('value'),$('#password').data('value'));
   if(user.admin == 1)
   {
@@ -7,6 +10,45 @@ $(document).ready(function(){
     $('#oczekujace').removeClass('disapear');
     $('#nowi').removeClass('disapear');
   }
+
+  $.getScript("/js/countRows.js",function(){
+     var borrowed = countRows("ElementsBorrowed");
+     var waiting = countRows("ElementsRequest");
+
+     if(borrowed>0)
+     {
+       color = "#2f8cff";
+     }
+     else {
+       color = "#b7b7b7";
+     }
+
+     $('.borrowed').html(borrowed).css("background-color",color);
+
+     if(waiting>0)
+     {
+       color = "#2f8cff";
+     }
+     else {
+       color = "#b7b7b7";
+     }
+
+     $('.waiting').html(waiting).css("background-color",color);
+
+     $('#logout').click(function(){
+       $.ajax({
+         type:"POST",
+         url:"/php/signout.php",
+         success:function()
+         {
+             alert("Wylogowales się");
+             window.location.href="/";
+         }
+       });
+
+     });
+  });
+  <!--end-->
 });
 </script>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -24,10 +66,9 @@ $(document).ready(function(){
 
       <ul class="nav navbar-nav navbar-right">
         <li><a href="main.php">Home</a></li>
-        <li><a href="wypozyczone.php">Wypożyczone <span class="badge">0</span></a></li>
-        <li class="disapear" id="oczekujace"><a href="oczekujace.php">Oczekujace <span class="badge">0</span></a></li>
-        <li class="disapear" id="nowi"><a href="nowi.php">Nowi <span class="badge">0</span></a></li>
-        <li><a href="/">Wyloguj</a></li>
+        <li><a href="wypozyczone.php">Wypożyczone <span class="badge borrowed">0</span></a></li>
+        <li class="disapear" id="oczekujace"><a href="oczekujace.php">Oczekujace <span class="badge waiting">0</span></a></li>
+        <li><a href="#" id="logout">Wyloguj</a></li>
       </ul>
       <form class="navbar-form navbar-right">
          <!-- Button trigger modal -->

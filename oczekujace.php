@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION["password"]) || $_SESSION["password"] == null)
+{
+  header("Location: /");
+}
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -22,6 +27,7 @@ session_start();
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/get_user_data.js"></script>
       <script type="text/javascript" src="js/get_element_by_id.js"></script>
+      <script type="text/javascript" src="js/modal_event.js"></script>
 
 
 
@@ -97,12 +103,28 @@ session_start();
                    .append($("<td>"+user.name+" "+user.surname+"</td>"))
                    .append($("<td>"+element.nazwa+"</td>"))
                    .append($("<td>"+element.kategoria+"</td>"))
-                   .append($("<td class='hide'>"+e[a]["info"]+"</td>"));
+                   .append($("<td class='hide'>"+e[a]["info"]+"</td>"))
+                    .append($("<td class='hide'>"+user.id+"</td>"))
+                     .append($("<td class='hide'>"+element.id+"</td>"));
 
             $("#table_elements").append(row);
           }
         }
       });
+
+      $('tbody').on("click","tr",function(){
+          $('#myModal3 #modal_id').html($(this).children('td:nth-child(1)').text());
+         $('#myModal3 #modal_nazwa').html($(this).children('td:nth-child(3)').text());
+          $('#myModal3 #modal_kategoria').html($(this).children('td:nth-child(4)').text());
+             $('#myModal3 #modal_opis').html($(this).children('td:nth-child(5)').text());
+              $('#myModal3 #modal_kto').html($(this).children('td:nth-child(2)').text());
+                $('#myModal3 #modal_kto_id').html($(this).children('td:nth-child(6)').text());
+                  $('#myModal3 #modal_element_id').html($(this).children('td:nth-child(7)').text());
+
+        $('#myModal3').modal('show');
+
+      });
+
 
 });
     </script>
@@ -119,37 +141,9 @@ session_start();
 	<!--Include templates-->
      <?
      include("templates/add_element.php");
+     include("templates/show_request.php");
+     include("templates/nav.php");
      ?>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">ClusterStuff</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Wypożyczone <span class="badge" style="background-color:green;">0</span></a></li>
-            <li><a href="#">Oczekujace <span class="badge">0</span></a></li>
-                <li><a href="#">Nowi <span class="badge">0</span></a></li>
-            <li><a href="#">Wyloguj</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-          	 <!-- Button trigger modal -->
- <button type="button" class="btn btn-warning" data-toggle="modal" id="add">
-  Add
-</button>
-            <input type="text" class="form-control" placeholder="Wyszukaj elementów...">
-          </form>
-        </div>
-      </div>
-    </nav>
 
 
 

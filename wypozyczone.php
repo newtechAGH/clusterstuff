@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION["password"]) || $_SESSION["password"] == null)
+{
+  header("Location: /");
+}
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -22,6 +27,7 @@ session_start();
     <script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src="js/get_user_data.js"></script>
       <script type="text/javascript" src="js/get_element_by_id.js"></script>
+     <script type="text/javascript" src="js/wypozyczone_model_event.js"></script>
 
 
 
@@ -65,12 +71,26 @@ session_start();
          $('#myModal').modal('show');
       });
 
+      var url = "";
+      var user = getUser($('#login').data('value'),$('#password').data('value'));
+      if(user.admin == 1)
+      {
+        ur = "php/borrowed_elements.php";
+      }
+      else {
+        ur  = "php/borrowed_elements_by_user.php";
+      }
+
 
       $.ajax({
         type:"POST",
         dataType:"json",
         async:false,
-        url:"php/borrowed_elements.php",
+        url:ur,
+        data:
+        {
+          id:user.id
+        },
         success:function(e)
         {
           for(var a = 0 ; a<e.length;a++)
@@ -85,7 +105,7 @@ session_start();
                    .append($("<td>"+element.nazwa+"</td>"))
                    .append($("<td>"+element.kategoria+"</td>"))
                    .append($("<td>"+e[a]["data"]+"</td>"))
-                    .append($("<td><button class='btn btn-primary oddaj' id='"+e[a]["id"]+"'>Zwróć</button></td>"))
+                    .append($("<td><button class='btn btn-primary oddaj' data-id='"+e[a]["id"]+"' data-element='"+element.id+"'>Zwróć</button></td>"))
                     .append($("<td class='hide'>"+user.id+"</td>"))
                      .append($("<td class='hide'>"+element.id+"</td>"));
 
@@ -98,6 +118,10 @@ session_start();
 
 
     $('.oddaj').on("click",function(){
+      deleteFromElementsBorrowed($(this).data("id"));
+      deleteClassBorrowed($(this).data("element"));
+
+         location.reload();
         //Skasuj wartosc z tabeli ElementsBorrowed i zmien wartosc na 0 w tabeli Elemenets kolumna wypozyczone
     });
 

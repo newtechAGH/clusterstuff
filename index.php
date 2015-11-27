@@ -26,7 +26,11 @@ session_start();
 <style>
 
 
-
+body{
+  background:url("images/large.jpg");
+  background-size:cover;
+  background-repeat:no-repeat;
+}
 	.form-signin
 	{
 		background: #ffffff;
@@ -37,11 +41,8 @@ session_start();
 .container
 {
 	z-index: 1000;
+  margin: 150px auto;
 }
-#maximage {
-/*				position:fixed !important;*/
-			}
-
 
 </style>
 
@@ -73,8 +74,9 @@ session_start();
           e.preventDefault();
 
     });
-
-
+    $('#reg').click(function(){
+      window.location.href = "/reg.php";
+    });
 	});
 </script>
 </head>
@@ -93,7 +95,7 @@ session_start();
         <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Password" required>
 
         <button class="btn btn-lg btn-warning btn-block" type="submit">Log in</button>
-        <button class="btn btn-lg btn-warning btn-block" type="submit">Register</button>
+        <button class="btn btn-lg btn-warning btn-block" id="reg">Register</button>
 
       </form>
 
