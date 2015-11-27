@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION["password"]) || $_SESSION["password"] == null)
+{
+  header("Location: /");
+}
+?>
 <!DOCTYPE html>
 <html lang="pl">
   <head>
@@ -20,8 +28,10 @@
     <script type="text/javascript" src="docs.min.js"></script>
     <script type="text/javascript" src="js/count_elements.js"></script>
     <script type="text/javascript" src="js/show_by_category.js"></script>
-
+    <script type="text/javascript" src="js/get_user_data.js"></script>
       <script type="text/javascript" src="js/modal_event.js"></script>
+      <script type="text/javascript" src="js/get_element_by_id.js"></script>
+    <script type="text/javascript" src="js/add_element.js"></script>
 
     <!-- Custom CSS -->
     <style>
@@ -52,6 +62,9 @@
 
     	$(document).ready(function(){
 
+
+  <!--Pobierz z bazy danych kategorie -->
+
         var kategorie_nazwa = [];
         var kategorie_search = [];
 
@@ -73,58 +86,100 @@
         }
         });
 
+       <!--end-->
+
 
         <!--Tworz menu -->
-        var first_row = $('<li class="active" data-search="'+kategorie_search[0]+'"><a href="#">'+kategorie_nazwa[0]+'<span class="sr-only">(current)</span>   <span class="badge">'+count(kategorie_search[0])+'</span></a></li>');
+        color = "#2f8cff";
+        var first_row = $('<li class="active" data-search="'+kategorie_search[0]+'"><a href="#">'+kategorie_nazwa[0]+'<span class="sr-only">(current)</span>   <span class="badge" style="background-color:'+color+'">'+count(kategorie_search[0])+'</span></a></li>');
         $('#category_menu').append(first_row);
         for(var a = 1;a<kategorie_nazwa.length;a++)
         {
-          var row =  $('<li data-search="'+kategorie_search[a]+'"><a href="#">'+kategorie_nazwa[a]+'    <span class="badge">'+count(kategorie_search[a])+'</span></a></li>');
+          var counts = count(kategorie_search[a]);
+          if(counts>0)
+          {
+            color = "#2f8cff";
+          }
+          else {
+            color = "#b7b7b7";
+          }
+          var row =  $('<li data-search="'+kategorie_search[a]+'"><a href="#">'+kategorie_nazwa[a]+'    <span class="badge" style="background-color:'+color+'">'+counts+'</span></a></li>');
           $('#category_menu').append(row);
         }
 
 
+       <!--end-->
 
-        $('tbody').on("click","tr:not(.warning,.danger)",function(){
+
+       <!-- uzytkownik posiadajacy uprawnienia admina moze otwierac elementy ktore sa wypozyczone i zepsute -->
+
+        var user = getUser($('#login').data('value'),$('#password').data('value'));
+        if(user.admin == 1)
+        {
+          row = 'tr';
+        }
+        else {
+          row = 'tr:not(.warning):not(.danger)';
+        }
+
+        <!--end-->
+
+
+      <!-- przeslij dane to modelu przedstawiajacego danego na temat elementu -->
+        $('tbody').on("click",row,function(){
             $('#myModal2 #modal_id').html($(this).children('td:nth-child(1)').text());
            $('#myModal2 #modal_nazwa').html($(this).children('td:nth-child(2)').text());
             $('#myModal2 #modal_kategoria').html($(this).children('td:nth-child(3)').text());
                $('#myModal2 #modal_opis').html($(this).children('td:nth-child(4)').text());
-          $('#myModal2').modal('show');
 
+              $('#myModal2 #zepsuty').prop("checked",parseInt($(this).children('td:nth-child(5)').text()));
+          $('#myModal2').modal('show');
+        });
+
+        <!--end-->
+
+        $.getScript("js/show_by_category.js",function(){
+               show_elements("all","");
         });
 
 
-
-
-         $.getScript("js/show_by_category.js",function(){
-               show_elements("all");
-         });
-
-         $.getScript("js/add_element.js",function(){
             new_element();
-         });
 
-
-
-
-
-
+        <!-- poruszanie sie po lewym menu z kategoriami wraz ze zmiana kategoria wywolywane jest zapytanie do bazy danych i wyswietlenie nowych elementow -->
+       var categ = "all";
         $("#category_menu li").click(function(){
           $("#category_menu li").removeClass("active");
           $(this).addClass("active");
 
             	$('#table_elements tr[class!="table_names"]').remove();
-              var categ = $(this).data("search");
+              categ = $(this).data("search");
+
           $.getScript("js/show_by_category.js",function(){
-              show_elements(categ);
+              show_elements(categ,$('#search').val());
           });
 
         });
 
+
+        <!--dynamic search -->
+        $('#search').keyup(function(e){
+          $.getScript("js/show_by_category.js",function(){
+              	$('#table_elements tr[class!="table_names"]').remove();
+              show_elements(categ,$('#search').val());
+          });
+        });
+
+
+
+        <!--end>
+
       $('#add').click(function(){
          $('#myModal').modal('show');
       });
+
+
+
+
 
 
 });
@@ -135,43 +190,16 @@
 
 <body>
 
+    <input type="hidden" id="login" data-value=<?php echo $_SESSION['login']; ?> />
+      <input type="hidden" id="password" data-value=<?php echo $_SESSION['password']; ?> />
+
 
 	<!--Include templates-->
      <?
      include("templates/add_element.php");
      include("templates/show_element.html");
+     include("templates/nav.php");
      ?>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">ClusterStuff</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Wypożyczone <span class="badge">0</span></a></li>
-            <li><a href="#">Profil</a></li>
-            <li><a href="#">Wyloguj</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-          	 <!-- Button trigger modal -->
- <button type="button" class="btn btn-warning" data-toggle="modal" id="add">
-  Add
-</button>
-            <input type="text" class="form-control" placeholder="Wyszukaj elementów...">
-          </form>
-        </div>
-      </div>
-    </nav>
-
-
 
 
 
@@ -185,11 +213,8 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-
-
-
           <h1 class="page-header"></h1>
-          <div id="demo"></div>
+
           <h2 class="sub-header">Elementy</h2>
 
 

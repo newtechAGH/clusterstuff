@@ -41,13 +41,16 @@ $(document).ready(function(){
          url:"/php/signout.php",
          success:function()
          {
-             alert("Wylogowales się");
+             alert("Wylogowałeś się");
              window.location.href="/";
          }
        });
 
      });
   });
+
+  
+
   <!--end-->
 });
 </script>
@@ -75,7 +78,7 @@ $(document).ready(function(){
 <button type="button" class="btn btn-warning disapear" data-toggle="modal" id="add">
 Add
 </button>
-        <input type="text" class="form-control" style="width:300px;"placeholder="Wyszukaj elementów...">
+        <input type="text" class="form-control" style="width:300px;" id="search" placeholder="Wyszukaj elementów...">
       </form>
     </div>
   </div>

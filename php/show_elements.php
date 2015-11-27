@@ -1,6 +1,7 @@
 <?php
 
-$category = $_GET['kategoria'];
+$category = $_POST['kategoria'];
+$search = $_POST['search'];
 
 $db = new mysqli("localhost","root","root","clusterstuff");
    if($db->connect_error)
@@ -27,8 +28,19 @@ $db = new mysqli("localhost","root","root","clusterstuff");
      $elements = array();
      while($row = mysqli_fetch_assoc($val))
      {
+    if(!empty($search))
+    {
+        if((strpos($row["nazwa"],$search)!==false) || (strpos($row["opis"],$search)!==false))
+         {
+           array_push($elements,array("id"=>$row["id"],"nazwa"=>$row["nazwa"],"kategoria"=>$row["kategoria"],"opis"=>$row["opis"],"wyp"=>$row["wypozyczone"],"uszk"=>$row["uszkodzone"]));
 
-       array_push($elements,array("id"=>$row["id"],"nazwa"=>$row["nazwa"],"kategoria"=>$row["kategoria"],"opis"=>$row["opis"],"wyp"=>$row["wypozyczone"],"uszk"=>$row["uszkodzone"]));
+        }
+      }
+    else {
+      array_push($elements,array("id"=>$row["id"],"nazwa"=>$row["nazwa"],"kategoria"=>$row["kategoria"],"opis"=>$row["opis"],"wyp"=>$row["wypozyczone"],"uszk"=>$row["uszkodzone"]));
+
+    }
+
 
      }
 

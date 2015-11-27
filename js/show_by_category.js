@@ -1,15 +1,16 @@
 
-function show_elements(kategoria)
+function show_elements(kategoria,sub)
 {
 
   <!-- read all elements -->
   $.ajax({
-    type:"GET",
+    type:"POST",
     dataType:"json",
     url:"/php/show_elements.php",
     data:
     {
-      kategoria:kategoria
+      kategoria:kategoria,
+      search:sub
     },
     success:function(msg)
     {
