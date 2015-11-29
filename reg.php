@@ -59,7 +59,7 @@
 
     <div class="container">
 
-      <form class="form-signin" name="register" method="POST" action="/clusterstuff/register.php" onsubmit="return checkForm(this);" onsubmit="return checkForm(this)">
+      <form class="form-signin" name="register" method="POST" action="/clusterstuff/register.php" onsubmit="return checkForm(this)" validate>
         <h2 class="form-signin-heading">Witamy</h2>
          <label for="inputName" class="sr-only">Name</label>
         <input type="text" name="name" id="inputName" class="form-control" placeholder="Name" required autofocus>

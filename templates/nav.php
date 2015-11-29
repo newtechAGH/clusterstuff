@@ -49,7 +49,7 @@ $(document).ready(function(){
      });
   });
 
-  
+
 
   <!--end-->
 });
@@ -63,7 +63,7 @@ $(document).ready(function(){
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="main.php">ClusterStuff</a>
+      <a class="navbar-brand" href="main.php"><img src="images/logo.png" style="width:150px; margin-top:-10px;"></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
 

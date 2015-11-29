@@ -88,7 +88,7 @@ body{
     <div class="container">
 
       <form class="form-signin" name="login" id="login" type="POST" action="php/login.php" validate>
-        <h2 class="form-signin-heading">ClusterStuff</h2>
+        <center><img class="form-signin-heading" src="images/logo.png" style="width:300px;"></center>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" name="login" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
