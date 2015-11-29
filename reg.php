@@ -49,6 +49,36 @@
     $("#cancel").click(function(){
       window.location.href = "/";
     });
+
+
+   $('form').submit(function(e){
+     $.ajax({
+       type:"POST",
+       url:"register.php",
+       data:
+       {
+         name:document.getElementById("register").elements[0].value,
+         surname:document.getElementById("register").elements[1].value,
+         mail:document.getElementById("register").elements[2].value,
+         password:document.getElementById("register").elements[3].value
+       },
+       success:function(e)
+       {
+           if(e=="ok")
+           {
+             location.href='/';
+           }
+           else if(e=="error")
+           {
+             alert("Uzytkownik istnieje");
+           }
+       }
+ });
+
+       e.preventDefault();
+
+   });
+
 	});
 </script>
 </head>
@@ -59,7 +89,7 @@
 
     <div class="container">
 
-      <form class="form-signin" name="register" method="POST" action="/clusterstuff/register.php" onsubmit="return checkForm(this)" validate>
+      <form class="form-signin" name="register" id="register" method="post" validate>
         <h2 class="form-signin-heading">Witamy</h2>
          <label for="inputName" class="sr-only">Name</label>
         <input type="text" name="name" id="inputName" class="form-control" placeholder="Name" required autofocus>

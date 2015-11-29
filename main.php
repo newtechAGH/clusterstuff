@@ -61,8 +61,7 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
 
 
     	$(document).ready(function(){
-
-
+        
   <!--Pobierz z bazy danych kategorie -->
 
         var kategorie_nazwa = [];

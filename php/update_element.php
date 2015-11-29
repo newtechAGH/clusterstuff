@@ -4,9 +4,8 @@ $id = $_POST['id'];
 $nazwa = $_POST['nazwa'];
 $kategoria = $_POST['kategoria'];
 $opis = $_POST['opis'];
+$zepsuty = $_POST['zepsuty'];
 
-echo $id;
-echo $nazwa;
 
 if($id and $nazwa and $kategoria)
 {
@@ -18,7 +17,7 @@ if($id and $nazwa and $kategoria)
      	 echo "error";
      }
 
-   $query = "UPDATE Elements SET nazwa='$nazwa',kategoria='$kategoria',opis='$opis' WHERE id = '$id'";
+   $query = "UPDATE Elements SET nazwa='$nazwa',kategoria='$kategoria',opis='$opis',uszkodzone='$zepsuty' WHERE id = '$id'";
    mysqli_query($db,$query);
 
     $db->close();

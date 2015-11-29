@@ -23,12 +23,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 	$password = test_input($_POST['pass']);
 
 
-	$query = "SELECT COUNT(*) FROM Users WHERE mail='$login' AND password='$password'";
+	$query = "SELECT COUNT(*) FROM Users WHERE mail='$login' AND password='$password' AND aktywny='1'";
   $isnick  = mysqli_fetch_array(mysqli_query($db,$query));
 
   if($isnick[0] == 0)
   {
-    echo "error";
+    echo "użytkownik nie istnieje";
   }
   else {
    $_SESSION['login'] = $login;

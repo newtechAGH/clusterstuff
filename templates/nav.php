@@ -1,14 +1,32 @@
 <script>
 $(document).ready(function(){
 
+
+  <!-- zablokuj pasek search-->
+  var locations = window.location.href.split("/");
+  var main = locations[locations.length-1];
+  if(main.search("main.php")!=-1)
+  {
+     $("#search").prop("disabled", false);
+  }
+  else {
+    $("#search").prop("disabled", true);
+  }
+  <!-- end -->
+
   <!-- nadanie praw w menu gornym -->
 
   var user = getUser($('#login').data('value'),$('#password').data('value'));
+
   if(user.admin == 1)
   {
      $('#add').removeClass('disapear');
-    $('#oczekujace').removeClass('disapear');
-    $('#nowi').removeClass('disapear');
+    $('#oczekujace').css("display","block");
+  }
+  else {
+    $('#add').addClass('disapear');
+     $('#oczekujace').css("display","none");
+
   }
 
   $.getScript("/js/countRows.js",function(){
@@ -63,7 +81,7 @@ $(document).ready(function(){
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="main.php"><img src="images/logo.png" style="width:150px; margin-top:-10px;"></a>
+      <a class="navbar-brand" href="main.php">ClusterStuff</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
 
@@ -71,6 +89,7 @@ $(document).ready(function(){
         <li><a href="main.php">Home</a></li>
         <li><a href="wypozyczone.php">Wypożyczone <span class="badge borrowed">0</span></a></li>
         <li class="disapear" id="oczekujace"><a href="oczekujace.php">Oczekujace <span class="badge waiting">0</span></a></li>
+
         <li><a href="#" id="logout">Wyloguj</a></li>
       </ul>
       <form class="navbar-form navbar-right">

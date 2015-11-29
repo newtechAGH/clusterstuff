@@ -20,54 +20,41 @@ function checkPassword(str)
       form.name.focus();
       return false;
     }
-    
-     re = /^\w+$/;
-    if(!re.test(form.name.value)) {
-      alert("Error: Name must contain only letters, numbers and underscores!");
-      form.name.focus();
-      return false;
-    }
-    
-    
+
+
      if(form.surname.value == "") {
       alert("Error: Surname cannot be blank!");
       form.surname.focus();
       return false;
     }
-    
-     re = /^\w+$/;
-    if(!re.test(form.surname.value)) {
-      alert("Error: Surname must contain only letters, numbers and underscores!");
-      form.surname.focus();
-      return false;
-    }
-    
+
+
      if(form.mail.value == "") {
       alert("Error: Mail cannot be blank!");
       form.login.focus();
       return false;
     }
-    
+
      if(!validateEmail(form.mail.value))
      {
      	alert("Error : Type in correct mail");
      	form.mail.focus();
      	return false;
      }
-    if(form.pass.value == "") {
+    if(form.password.value == "") {
         alert("Error : Password cannot be blank!");
-        form.pass.focus();
-        
+        form.password.focus();
+
         return false;
        }
-       
-    else if(!checkPassword(form.pass.value)) 
+
+    else if(!checkPassword(form.password.value))
        {
         alert("The password you have entered is not valid!");
         form.pass.focus();
         return false;
       }
-   
-    
+
+
     return true;
   }

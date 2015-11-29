@@ -68,6 +68,9 @@ body{
                {
                  location.href = "main.php";
                }
+               else {
+                 alert(msg);
+               }
           }
         });
 
@@ -88,7 +91,7 @@ body{
     <div class="container">
 
       <form class="form-signin" name="login" id="login" type="POST" action="php/login.php" validate>
-        <center><img class="form-signin-heading" src="images/logo.png" style="width:300px;"></center>
+        <h1 class="form-signin-heading">ClusterStuff</h1>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" name="login" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
