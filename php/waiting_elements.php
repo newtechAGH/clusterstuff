@@ -1,10 +1,7 @@
 <?php
 
-$db = new mysqli("localhost","root","root","clusterstuff");
-if($db->connect_error)
-{
-  echo "error";
-}
+require "connect.php";
+
 $query  = "SELECT * FROM ElementsRequest";
 $val = mysqli_query($db,$query);
 $arr = array();

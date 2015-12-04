@@ -95,7 +95,7 @@ $(document).ready(function(){
       <form class="navbar-form navbar-right">
          <!-- Button trigger modal -->
 <button type="button" class="btn btn-warning disapear" data-toggle="modal" id="add">
-Add
+Dodaj
 </button>
         <input type="text" class="form-control" style="width:300px;" id="search" placeholder="Wyszukaj elementów...">
       </form>

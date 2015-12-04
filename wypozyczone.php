@@ -76,9 +76,14 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
       if(user.admin == 1)
       {
         ur = "php/borrowed_elements.php";
+        $('#back_button').removeClass("hide");
+          $('#powitanie').html("Elementy wypozyczone przez uzytkownikow");
+
       }
       else {
         ur  = "php/borrowed_elements_by_user.php";
+
+          $('#powitanie').html("Twoje wypozyczone elementy, "+user.name+" "+user.surname);
       }
 
 
@@ -105,7 +110,7 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
                    .append($("<td>"+element.nazwa+"</td>"))
                    .append($("<td>"+element.kategoria+"</td>"))
                    .append($("<td>"+e[a]["data"]+"</td>"))
-                    .append($("<td><button class='btn btn-primary oddaj' data-id='"+e[a]["id"]+"' data-element='"+element.id+"'>Zwróć</button></td>"))
+                    .append($("<td id='back_button' class='hide'><button class='btn btn-primary oddaj' data-id='"+e[a]["id"]+"' data-element='"+element.id+"'>Zwróć</button></td>"))
                     .append($("<td class='hide'>"+user.id+"</td>"))
                      .append($("<td class='hide'>"+element.id+"</td>"));
 
@@ -113,8 +118,8 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
           }
         }
       });
-    var user = getUser($('#login').data("value"),$('#password').data("value"));
-    $('#powitanie').html("Twoje wypozyczone elementy, "+user.name+" "+user.surname);
+
+
 
 
     $('.oddaj').on("click",function(){
@@ -159,10 +164,8 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
+          <h1 class="page-header">SKN NewTech. <small>Elementy w naszej bazie danych</small></h1>
 
-
-
-          <h1 class="page-header"></h1>
 
           <h2 class="sub-header"><div id="powitanie"></div></h2>
 

@@ -3,19 +3,14 @@
 $category = $_POST['kategoria'];
 $search = $_POST['search'];
 
-$db = new mysqli("localhost","root","root","clusterstuff");
-   if($db->connect_error)
-   {
-   	 echo "error";
-   }
-
+require "connect.php";
 
    if($category!="all")
    {
-     $query = "SELECT * FROM Elements WHERE kategoria LIKE '" . mysql_escape_string($category) . "';";
+     $query = "SELECT * FROM Elements WHERE kategoria LIKE '" . mysql_escape_string($category) . "' GROUP BY id DESC";
    }
    else {
-     $query = "SELECT * FROM Elements";
+     $query = "SELECT * FROM Elements GROUP BY ID DESC";
    }
 
    $val = mysqli_query($db,$query);

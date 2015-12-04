@@ -92,7 +92,7 @@ $(document).ready(function(){
     $('.edit').addClass("disapear");
     $('.subelement').removeClass("disapear");
     $('#anuluj_edytowanie').addClass("disapear");
-    
+
 
 
     $(this).one("click",edit);
@@ -149,5 +149,10 @@ $(document).ready(function(){
     location.reload();
   });
 
+
+   function checkIfreload()
+   {
+     location.reload();
+   }
 
 });

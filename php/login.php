@@ -1,5 +1,7 @@
 <?
 session_start();
+
+
 function test_input($data) {
  		 $data = trim($data);
   		 $data = stripslashes($data);
@@ -9,15 +11,7 @@ function test_input($data) {
 
 
 
-
-$db = new mysqli("localhost","root","root","clusterstuff");
-   if($db->connect_error)
-   {
-   	 echo "error";
-   }
-
-if($_SERVER['REQUEST_METHOD'] == "POST")
-{
+  require "connect.php";
 
 	$login = test_input($_POST['login']);
 	$password = test_input($_POST['pass']);
@@ -31,17 +25,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     echo "użytkownik nie istnieje";
   }
   else {
+    echo "zalogowany";
+
    $_SESSION['login'] = $login;
    $_SESSION['password'] = $password;
 
-   echo "zalogowany";
-  }
-}
-else
-	{
-		echo "wrong request method";
-	}
 
-  mysqli_close($db);
+  }
+
 
 ?>

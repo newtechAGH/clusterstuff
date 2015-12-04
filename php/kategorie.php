@@ -1,9 +1,6 @@
 <?php
-$db = new mysqli("localhost","root","root","clusterstuff");
-   if($db->connect_error)
-   {
-   	 echo "error";
-   }
+require "connect.php";
+
    $query = "SELECT * FROM Kategorie";
    $zapytanie = mysqli_query($db,$query);
 

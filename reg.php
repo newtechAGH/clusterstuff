@@ -90,19 +90,19 @@
     <div class="container">
 
       <form class="form-signin" name="register" id="register" method="post" validate>
-        <h2 class="form-signin-heading">Witamy</h2>
+        <h2 class="form-signin-heading">Witamy <small>nowego członka</small></h2>
          <label for="inputName" class="sr-only">Name</label>
-        <input type="text" name="name" id="inputName" class="form-control" placeholder="Name" required autofocus>
+        <input type="text" name="name" id="inputName" class="form-control" placeholder="Imię" required autofocus>
 
          <label for="inputSurname" class="sr-only">Surname</label>
-        <input type="text" name="surname" id="inputSurname" class="form-control" placeholder="Surname" required>
+        <input type="text" name="surname" id="inputSurname" class="form-control" placeholder="Nazwisko" required>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" name="mail" id="inputEmail" class="form-control" placeholder="Email address" required>
+        <input type="email" name="mail" id="inputEmail" class="form-control" placeholder="Email adres" required>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Hasło" required>
 
-        <button class="btn btn-lg btn-warning btn-block" type="submit">Register</button>
-         <button class="btn btn-lg btn-warning btn-block" id="cancel">Cancel</button>
+        <button class="btn btn-lg btn-warning btn-block" type="submit">Rejestruj</button>
+         <button class="btn btn-lg btn-warning btn-block" id="cancel">Anuluj</button>
       </form>
 
     </div> <!-- /container -->

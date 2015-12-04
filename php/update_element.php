@@ -6,16 +6,11 @@ $kategoria = $_POST['kategoria'];
 $opis = $_POST['opis'];
 $zepsuty = $_POST['zepsuty'];
 
+require "connect.php";
 
 if($id and $nazwa and $kategoria)
 {
-  $db = new mysqli("localhost","root","root","clusterstuff");
 
-
-     if($db->connect_error)
-     {
-     	 echo "error";
-     }
 
    $query = "UPDATE Elements SET nazwa='$nazwa',kategoria='$kategoria',opis='$opis',uszkodzone='$zepsuty' WHERE id = '$id'";
    mysqli_query($db,$query);

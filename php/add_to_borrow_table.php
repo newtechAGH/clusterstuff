@@ -3,12 +3,7 @@
 $user = $_POST['user'];
 $element  = $_POST['element'];
 
-
-$db = new mysqli("localhost","root","root","clusterstuff");
-   if($db->connect_error)
-   {
-     echo "error";
-   }
+require "connect.php";
 
 $dat = date("Y-m-d");
 $query = "INSERT INTO ElementsBorrowed (id_element,id_user,data) VALUES ('$element','$user','$dat')";

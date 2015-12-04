@@ -1,9 +1,5 @@
 <?php
-$db = new mysqli("localhost","root","root","clusterstuff");
-   if($db->connect_error)
-   {
-     echo "error";
-   }
+require "connect.php";
 
    $login = $_POST['login'];
    $password = $_POST['password'];

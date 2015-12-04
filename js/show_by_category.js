@@ -18,16 +18,21 @@ function show_elements(kategoria,sub)
       {
       for(var a=0;a<msg.length;a++)
       {
-        var klasa = "";
+
         if(msg[a]["wyp"] == 1)
         {
           klasa = "warning";
+          row = $("<tr class='"+klasa+"'>");
         }
-        if(msg[a]["uszk"] == 1)
+        else if(msg[a]["uszk"] == 1)
         {
           klasa  ="danger";
+          row = $("<tr class='"+klasa+"'>");
         }
-        var row = $("<tr class='"+klasa+"'>");
+        else {
+          row = $("<tr>");
+        }
+
 
           row.append($("<td id='"+msg[a]["id"]+"'>"+msg[a]["id"]+"</td>"))
                .append($("<td>"+msg[a]["nazwa"]+"</td>"))

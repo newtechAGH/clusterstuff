@@ -1,10 +1,8 @@
 <?php
 $id = $_POST['id'];
-$db = new mysqli("localhost","root","root","clusterstuff");
-if($db->connect_error)
-{
-  echo "error";
-}
+
+require "connect.php";
+
 $query  = "SELECT * FROM ElementsBorrowed WHERE id_user ='$id'";
 $val = mysqli_query($db,$query);
 $arr = array();

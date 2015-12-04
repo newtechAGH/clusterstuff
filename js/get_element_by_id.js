@@ -17,6 +17,28 @@ function getElementBy(id)
   });
   return info;
 }
+function getBorrowedElement(id)
+{
+  var info = null;
+  $.ajax({
+    type:"POST",
+    dataType:"json",
+    url:"/php/borrowed_elements_by_id.php",
+    async:false,
+    data:
+    {
+      id:id
+    },
+    success:function(msg)
+    {
+      info = msg;
+
+    }
+
+  });
+return info;
+}
+
 function getElementByUser(id,user)
 {
   var info = null;

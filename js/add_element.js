@@ -29,3 +29,32 @@ function new_element()
     });
   });
 }
+function new_category()
+{
+  $('#add_category').click(function(){
+
+    $.ajax({
+      type:"POST",
+      url:"/php/add_category.php",
+      data:
+      {
+        kategoria:document.getElementById("new_category").elements[0].value,
+        szukaj:document.getElementById("new_category").elements[1].value
+      },
+      success:function(msg)
+      {
+        alert(msg);
+      },
+      complete:function(msg)
+      {
+
+      },
+      error:function(msg)
+      {
+        
+      }
+
+    });
+
+  });
+}

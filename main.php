@@ -36,11 +36,11 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
     <!-- Custom CSS -->
     <style>
 
-    	tr:not(.warning):not(.danger)
+    	tr:not(.danger)
     	{
     		cursor:pointer;
     	}
-    	.warning,.danger
+    	.danger
     	{
     		cursor:not-allowed;
     	}
@@ -61,7 +61,7 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
 
 
     	$(document).ready(function(){
-        
+
   <!--Pobierz z bazy danych kategorie -->
 
         var kategorie_nazwa = [];
@@ -102,7 +102,7 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
           else {
             color = "#b7b7b7";
           }
-          var row =  $('<li data-search="'+kategorie_search[a]+'"><a href="#">'+kategorie_nazwa[a]+'    <span class="badge" style="background-color:'+color+'">'+counts+'</span></a></li>');
+          var row =  $('<li  data-search="'+kategorie_search[a]+'"><a href="#">'+kategorie_nazwa[a]+'    <span class="badge" style="background-color:'+color+'">'+counts+'</span></a></li>');
           $('#category_menu').append(row);
         }
 
@@ -115,10 +115,10 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
         var user = getUser($('#login').data('value'),$('#password').data('value'));
         if(user.admin == 1)
         {
-          row = 'tr';
+          row = 'tr:not(.warning):not(.replaced)';
         }
         else {
-          row = 'tr:not(.warning):not(.danger)';
+          row = 'tr:not(.warning):not(.danger):not(.replaced)';
         }
 
         <!--end-->
@@ -142,7 +142,61 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
         });
 
 
-            new_element();
+
+        var row;
+
+        $('tbody').on({
+       click: function(){
+         var id = $(this).children('td:nth-child(1)').text();
+         var $what = $(this);
+         $.when(
+        $.getScript( "/js/get_user_data.js" ),
+        $.getScript( "/js/get_element_by_id.js" ),
+        $.Deferred(function( deferred ){
+            $( deferred.resolve );
+        })
+        ).done(function(){
+
+                  var element = getBorrowedElement(id);
+                  var user = getUserById(element.id_user);
+
+                  var new_row = "<tr class='replaced'>"
+                  +"<td colspan='3'><div class='panel panel-warning'>"
+                  +"<div class='panel-heading'>Element wypożyczony : "+$what.children('td:nth-child(2)').text()+"</div>"
+                  +"<table class='table'>"
+                  +"<thead>"
+                  +"<tr>"
+                  +"<th>Kto</th>"
+                  +"<th>Kiedy</th>"
+                  +"</tr>"
+                  +"</thead>"
+                  +"<tbody>"
+                  +"<tr>"
+                  +"<td>"+user.name+" "+user.surname+"</td>"
+                  +"<td>"+element.data+"</td>"
+                  +"<tr>"
+                  +"</tbody"
+                  +"</table>"
+                  +"</div>"
+                  +"</td>"
+                  +"</tr>";
+
+                   row = $what.html();
+                   $what.replaceWith(new_row);
+                 });
+          }
+         },"tr.warning");
+
+        $('tbody').on({
+          mouseleave: function()
+          {
+            var new_row = "<tr class='warning'>"+row+"</tr>";
+            $(this).replaceWith(new_row);
+          }
+        },"tr.replaced");
+
+
+
 
         <!-- poruszanie sie po lewym menu z kategoriami wraz ze zmiana kategoria wywolywane jest zapytanie do bazy danych i wyswietlenie nowych elementow -->
        var categ = "all";
@@ -172,13 +226,18 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
 
         <!--end>
 
+        new_element();
+        new_category();
+
+
       $('#add').click(function(){
          $('#myModal').modal('show');
       });
 
 
-
-
+            $('#add_new_category').click(function(){
+               $('#myModal4').modal('show');
+            });
 
 
 });
@@ -198,6 +257,7 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
      include("templates/add_element.php");
      include("templates/show_element.html");
      include("templates/nav.php");
+     include("templates/add_category.html");
      ?>
 
 
@@ -208,11 +268,17 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
           <ul class="nav nav-sidebar" id="category_menu">
 
           </ul>
+        <center>
+          <div class="btn-group" role="group" aria-label="Kategorie">
+  <button type="button" class="btn btn-primary" id="add_new_category">Dodaj</button>
 
+  <button type="button" class="btn btn-danger" id="delete_category">Usuń</button>
+</div>
+        </center>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-          <h1 class="page-header"></h1>
+          <h1 class="page-header">SKN NewTech. <small>Elementy w naszej bazie danych</small></h1>
 
           <h2 class="sub-header">Elementy</h2>
 

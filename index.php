@@ -7,7 +7,6 @@ session_start();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
 <!-- Latest compiled and minified CSS -->
@@ -21,7 +20,6 @@ session_start();
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 
-<script src="js/validate_login.js"></script>
 
 <style>
 
@@ -41,7 +39,7 @@ body{
 .container
 {
 	z-index: 1000;
-  margin: 150px auto;
+  margin: 20px auto;
 }
 
 </style>
@@ -64,12 +62,9 @@ body{
           },
           success:function(msg)
           {
-               if(msg == "zalogowany")
+               if(msg=="zalogowany")
                {
-                 location.href = "main.php";
-               }
-               else {
-                 alert(msg);
+                 location.href="main.php";
                }
           }
         });
@@ -89,16 +84,21 @@ body{
 <body>
 
     <div class="container">
+      <center>
 
+<h1>Aplikacja SKN NewTech. <small>baza elementów</small></h1>
+<br>
+</center>
       <form class="form-signin" name="login" id="login" type="POST" action="php/login.php" validate>
-        <h1 class="form-signin-heading">ClusterStuff</h1>
+        <center><h1 class="form-signin-heading">ClusterStuff</h1></center></br>
+        <h1><small>nie masz jeszcze konta?</small></h1>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" name="login" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <input type="email" name="login" id="inputEmail" class="form-control" placeholder="Email adres" required autofocus>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Hasło" required>
 
-        <button class="btn btn-lg btn-warning btn-block" type="submit">Log in</button>
-        <button class="btn btn-lg btn-warning btn-block" id="reg">Register</button>
+        <button class="btn btn-lg btn-warning btn-block" type="submit">Loguj się</button>
+        <button class="btn btn-lg btn-warning btn-block" id="reg">Zarejestruj</button>
 
       </form>
 

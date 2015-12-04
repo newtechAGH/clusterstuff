@@ -162,7 +162,8 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
 
 
 
-          <h1 class="page-header"></h1>
+          <h1 class="page-header">SKN NewTech. <small>Elementy w naszej bazie danych</small></h1>
+
 
           <h2 class="sub-header">Oczekujące elementy na wypożyczenie</h2>
 

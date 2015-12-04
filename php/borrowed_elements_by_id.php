@@ -3,7 +3,8 @@
 $id = $_POST['id'];
 
 require "connect.php";
-   $query = "SELECT * FROM Elements WHERE id='$id'";
+
+   $query = "SELECT * FROM ElementsBorrowed WHERE id_element='$id'";
    $val = mysqli_query($db,$query);
 
 

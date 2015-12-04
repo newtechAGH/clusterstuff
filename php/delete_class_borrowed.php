@@ -1,12 +1,7 @@
 <?php
    $id = $_POST['id'];
 
-   $db = new mysqli("localhost","root","root","clusterstuff");
-      if($db->connect_error)
-      {
-        echo "error";
-      }
-
+  require "connect.php";
 
     $query = "UPDATE Elements SET wypozyczone = '0' WHERE id='$id'";
     if(mysqli_query($db,$query))
