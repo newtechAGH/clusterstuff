@@ -73,7 +73,7 @@ body{
 
     });
     $('#reg').click(function(){
-      window.location.href = "/reg.php";
+      window.location.href = "reg.php";
     });
 	});
 </script>
