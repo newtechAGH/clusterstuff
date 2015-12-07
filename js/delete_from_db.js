@@ -2,7 +2,7 @@ function deleteFromDB(id)
 {
   $.ajax({
     type:"POST",
-    url:"/php/delete_waiting.php",
+    url:"php/delete_waiting.php",
     data:
     {
       id:id

@@ -4,7 +4,7 @@ function getUser(login,password)
   $.ajax({
     type:"POST",
     dataType:"json",
-    url:"/php/getUser.php",
+    url:"php/getUser.php",
     async:false,
     data:
     {
@@ -25,7 +25,7 @@ function getUserById(id)
   $.ajax({
     type:"POST",
     dataType:"json",
-    url:"/php/getUserById.php",
+    url:"php/getUserById.php",
     async:false,
     data:
     {

@@ -3,7 +3,7 @@ $(document).ready(function(){
 
 
   $('#usun_element').click(function(){
-    $.getScript("/js/delete_element.js", function(){
+    $.getScript("js/delete_element.js", function(){
           del($('#modal_id').text());
      });
        $('#myModal2').modal('hide');
@@ -30,8 +30,8 @@ $(document).ready(function(){
 
 
      $.when(
-    $.getScript( "/js/get_user_data.js" ),
-    $.getScript( "/js/send_req.js" ),
+    $.getScript( "js/get_user_data.js" ),
+    $.getScript( "js/send_req.js" ),
     $.Deferred(function( deferred ){
         $( deferred.resolve );
     })
@@ -79,7 +79,7 @@ $(document).ready(function(){
   {
 
 
-    $.getScript("/js/update_element.js", function(){
+    $.getScript("js/update_element.js", function(){
          update();
      });
 
@@ -124,8 +124,8 @@ $(document).ready(function(){
   $('#wypozycz').on("click",function(){
 
     $.when(
-   $.getScript( "/js/add_to_borrowed.js" ),
-   $.getScript( "/js/delete_from_db.js" ),
+   $.getScript( "js/add_to_borrowed.js" ),
+   $.getScript( "js/delete_from_db.js" ),
    $.Deferred(function( deferred ){
        $( deferred.resolve );
    })
@@ -141,7 +141,7 @@ $(document).ready(function(){
   });
 
   $('#odrzuc').click(function(){
-    $.getScript("/js/delete_from_db.js",function(){
+    $.getScript("js/delete_from_db.js",function(){
       var id =  $('#modal_id').text();
        deleteFromDB(id);
     });

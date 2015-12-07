@@ -6,7 +6,7 @@ function new_element()
 
     $.ajax({
       type:"POST",
-      url:"/php/add_element.php",
+      url:"php/add_element.php",
       data:
       {
         nazwa:document.getElementById("new_element").elements[0].value,
@@ -35,7 +35,7 @@ function new_category()
 
     $.ajax({
       type:"POST",
-      url:"/php/add_category.php",
+      url:"php/add_category.php",
       data:
       {
         kategoria:document.getElementById("new_category").elements[0].value,
@@ -51,7 +51,7 @@ function new_category()
       },
       error:function(msg)
       {
-        
+
       }
 
     });

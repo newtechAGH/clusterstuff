@@ -4,7 +4,7 @@ function countRows(tabela)
     $.ajax({
     type:"POST",
     async:false,
-    url:"/php/count_rows.php",
+    url:"php/count_rows.php",
     data:
     {
       tabela:tabela

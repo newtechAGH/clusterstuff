@@ -4,7 +4,7 @@ function getElementBy(id)
   $.ajax({
     type:"POST",
     dataType:"json",
-    url:"/php/get_element.php",
+    url:"php/get_element.php",
     async:false,
     data:
     {
@@ -23,7 +23,7 @@ function getBorrowedElement(id)
   $.ajax({
     type:"POST",
     dataType:"json",
-    url:"/php/borrowed_elements_by_id.php",
+    url:"php/borrowed_elements_by_id.php",
     async:false,
     data:
     {
@@ -45,7 +45,7 @@ function getElementByUser(id,user)
   $.ajax({
     type:"POST",
     dataType:"json",
-    url:"/php/get_element_user.php",
+    url:"php/get_element_user.php",
     async:false,
     data:
     {

@@ -3,7 +3,7 @@ function update()
 
   $.ajax({
     type:"POST",
-    url:"/php/update_element.php",
+    url:"php/update_element.php",
     data:
     {
       id:$('#modal_id').text(),

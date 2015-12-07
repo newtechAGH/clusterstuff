@@ -4,7 +4,7 @@ function count(kategoria)
   $.ajax({
   type:"POST",
   async:false,
-  url:"/php/count_by_category.php",
+  url:"php/count_by_category.php",
   data:
   {
     kategoria:kategoria

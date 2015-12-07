@@ -6,7 +6,7 @@ function show_elements(kategoria,sub)
   $.ajax({
     type:"POST",
     dataType:"json",
-    url:"/php/show_elements.php",
+    url:"php/show_elements.php",
     data:
     {
       kategoria:kategoria,

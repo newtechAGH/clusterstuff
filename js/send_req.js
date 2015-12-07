@@ -2,7 +2,7 @@ function sendAsk(id_user,id_element,info)
 {
     $.ajax({
       type:"POST",
-      url:"/php/sendAsk.php",
+      url:"php/sendAsk.php",
       data:
       {
         user:id_user,

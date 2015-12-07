@@ -5,7 +5,7 @@ function getCategories()
     type:"POST",
     async:false,
     dataType:"json",
-    url:"/php/kategorie.php",
+    url:"php/kategorie.php",
     dataType:"xml",
     success:function(jsonData)
     {

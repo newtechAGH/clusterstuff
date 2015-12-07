@@ -2,7 +2,7 @@
  {
    $.ajax({
      type:"POST",
-     url:"/php/delete_from_borrowed.php",
+     url:"php/delete_from_borrowed.php",
      data:
      {
        id:id
@@ -17,7 +17,7 @@ function deleteClassBorrowed(id)
 {
   $.ajax({
     type:"POST",
-    url:"/php/delete_class_borrowed.php",
+    url:"php/delete_class_borrowed.php",
     data:
     {
       id:id

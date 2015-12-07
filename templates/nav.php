@@ -29,7 +29,7 @@ $(document).ready(function(){
 
   }
 
-  $.getScript("/js/countRows.js",function(){
+  $.getScript("js/countRows.js",function(){
      var borrowed = countRows("ElementsBorrowed");
      var waiting = countRows("ElementsRequest");
 

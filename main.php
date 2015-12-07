@@ -102,7 +102,7 @@ if(!isset($_SESSION['login']) || $_SESSION["login"] == null || !isset($_SESSION[
           else {
             color = "#b7b7b7";
           }
-          var row =  $('<li  data-search="'+kategorie_search[a]+'"><a href="#">'+kategorie_nazwa[a]+'    <span class="badge" style="background-color:'+color+'">'+counts+'</span></a></li>');
+          var row =  $('<li  data-search="'+kategorie_search[a]+'"><a href="#">'+kategorie_nazwa[a]+'      <input type="checkbox"/>     <span class="badge" style="background-color:'+color+'">'+counts+'</span></a> </li>');
           $('#category_menu').append(row);
         }
 
