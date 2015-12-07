@@ -73,7 +73,7 @@ body{
 
     });
     $('#reg').click(function(){
-      window.location.href = "<?php echo $_SERVER['REMOTE_HOST']?>/reg.php";
+      window.location.href = "reg.php";
     });
 	});
 </script>
